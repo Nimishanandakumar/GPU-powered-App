@@ -2,13 +2,14 @@ from flask_ngrok import run_with_ngrok
 from flask import Flask, render_template, request
 
 import torch
-from diffusers import StableDiffusion3Pipeline
+from diffusers import StableDiffusionPipeline
 
 import base64
 from io import BytesIO
 
 # Load model
-pipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3.5-large", torch_dtype=torch.bfloat16)
+model_id = "sd-legacy/stable-diffusion-v1-5"
+pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
 pipe.to("cuda")
 
 # Start flask app and set to ngrok
